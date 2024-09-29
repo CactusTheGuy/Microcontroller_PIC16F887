@@ -18,7 +18,12 @@ void main()
       }
       if (!input(PIN_D1)) //Check if the START button is pressed
       {
-         if (byte_c==0) //Check if the varible have possitive number
+         if (byte_c>0) //Check if the varible have possitive number
+         {
+            start_hold++;
+            delay_ms(100);
+         }
+         if (byte_c==0) //Check if the varible equal to zero
          {
             start_hold=0;
          }
@@ -26,11 +31,6 @@ void main()
          {
             start_hold=1;
          }
-      else //Register the button into variable
-      {
-         start_hold++;
-         delay_ms(100);
-      }
       }
       if (start_hold>0 & (byte_c>0)) //Check if the varibles is a possitive number
       {
