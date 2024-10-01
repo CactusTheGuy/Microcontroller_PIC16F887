@@ -7,32 +7,27 @@ void main()
    set_tris_b(0x00); //Setup port B to all input
    set_tris_c(0xff); //Setup port C to all output
    set_tris_d(0x00); //Setup port D to all input
-   output_low(PIN_B0);
+   output_low(PIN_B0); //Give the output pin a low signal to ensure a correct output of the pin
    while(TRUE) //Program start
    {
-      if (!input(PIN_D0)) //Check if the SET button is pressed
+      if (!input(PIN_D0))  //Check if the SET button is pressed
       {
-         byte_c++;
-         output_c(byte_c);
-         delay_ms(100);
-      }
-      if (!input(PIN_D1)) //Check if the START button is pressed
+        delay_ms(50);
+        if (input(PIN_D0))  //Check if SET button is released
+        {
+            byte_c++;
+            output_c(byte_c);
+        }
+      }  //This function is used to give the SET button to register only 1 time
+      if (!input(PIN_D1))  //Check if the START button is pressed
       {
-         if (byte_c>0) //Check if the varible have possitive number
+         delay_ms(50);
+         if (input(PIN_D1) & (start_hold==0) & (byte_c>0))
          {
-            start_hold++;
-            delay_ms(100);
+             start_hold++;
          }
-         if (byte_c==0) //Check if the varible equal to zero
-         {
-            start_hold=0;
-         }
-         if (start_hold>1) //Check if the START button is being hold or pressed multiple times
-         {
-            start_hold=1;
-         }
-      }
-      if (start_hold>0 & (byte_c>0)) //Check if the varibles is a possitive number
+      }  //This function is used to give the START button to register only 1 time
+      if (start_hold>0 & (byte_c>0))  //Check if the varibles is a possitive number
       {
          byte_c--;
          output_c(byte_c);
@@ -40,7 +35,7 @@ void main()
          delay_ms(500);
          output_low(PIN_B0);
          delay_ms(500);
-         if (byte_c==0) //Check if the varible reached 0
+         if (byte_c==0)  //Check if the varible reached 0
          {
             start_hold=0;
          }
