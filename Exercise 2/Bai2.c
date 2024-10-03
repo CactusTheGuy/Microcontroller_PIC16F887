@@ -5,9 +5,9 @@ unsigned int8 Ones, Tens;  //Initilize varible to calculate value while running
 
 void main()
 {
-   set_tris_b(0x00);  //Give port B all input
-   set_tris_c(0xff);  //Give port C all output
-   set_tris_d(0xff);  //Give port C all output
+   set_tris_b(0xff);  //Give port B all input
+   set_tris_c(0x00);  //Give port C all output
+   set_tris_d(0x00);  //Give port C all output
    output_c(SegDis[0]);  //Make port C display a set value to tens 7-segment display
    output_d(SegDis[0]);  //Make port D display a set value to ones 7-segment display
    while(TRUE) //Program start
