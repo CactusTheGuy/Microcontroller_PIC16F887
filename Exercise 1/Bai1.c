@@ -1,14 +1,14 @@
 #include <Bai1.h>
 unsigned int8 byte_c = 0;  //Store the number of time LED blink
-unsigned int8 start_hold = 0;  //Make LED blinking even if START is released after press
+unsigned ini1 start_hold = 0;  //Make LED blinking even if START is released after press
 
 void main()
 {
-   set_tris_b(0x00);  //Setup port B to all output
+   set_tris_b(0x7f);  //Setup port B at B0 to output, B1 to B7 to input
    set_tris_c(0x00);  //Setup port C to all output
    set_tris_d(0xff);  //Setup port D to all input
    output_low(PIN_B0);  //Give the output pin a low signal to ensure a correct output of the pin
-   output_c(0);
+   output_c(byte_c);
    while(TRUE)  //Program start
    {
       if (!input(PIN_D0))  //Check if the SET button is pressed
@@ -25,13 +25,13 @@ void main()
          delay_ms(10);
          if (input(PIN_D1) & (start_hold==0) & (byte_c>0))
          {
-             start_hold++;
+             start_byte=1;
          }
       }  //This function is used to give the START button to register only 1 time
-      if (start_hold>0 & (byte_c>0))  //Check if the varibles is a possitive number
+      if (start_hold==1 & (byte_c>0))  //Check if the varibles is a possitive number
       {
          byte_c--;
-         output_c(byte_c);
+         output_c(byte_c); //Update after subtracting
          output_high(PIN_B0);
          delay_ms(500);
          output_low(PIN_B0);
