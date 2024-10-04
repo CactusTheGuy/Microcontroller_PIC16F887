@@ -4,7 +4,7 @@ unsigned int8 start_hold = 0;  //Make LED blinking even if START is released aft
 
 void main()
 {
-   set_tris_b(0xff);  //Setup port B to all input
+   set_tris_b(0x00);  //Setup port B to all output
    set_tris_c(0x00);  //Setup port C to all output
    set_tris_d(0xff);  //Setup port D to all input
    output_low(PIN_B0);  //Give the output pin a low signal to ensure a correct output of the pin
